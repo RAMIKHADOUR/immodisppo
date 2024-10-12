@@ -2,8 +2,10 @@
 
 namespace App\Entity;
 
-use App\Repository\AnnoncesRepository;
+use App\Entity\Users;
+use App\Entity\Categorys;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\AnnoncesRepository;
 
 
 #[ORM\Entity(repositoryClass: AnnoncesRepository::class)]
@@ -19,6 +21,9 @@ class Annonces
 
     #[ORM\ManyToOne(inversedBy: 'annonces')]
     private ?Users $user = null;
+
+    #[ORM\ManyToOne(inversedBy: 'cannonce')]
+    private ?Categorys $categorys = null;
 
     public function getId(): ?int
     {
@@ -45,6 +50,18 @@ class Annonces
     public function setUser(?Users $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getCategorys(): ?Categorys
+    {
+        return $this->categorys;
+    }
+
+    public function setCategorys(?Categorys $categorys): static
+    {
+        $this->categorys = $categorys;
 
         return $this;
     }
